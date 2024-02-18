@@ -58,10 +58,10 @@
                 { "label": "LEFT", "matrix": [2, 1], "x": 1, "y": 2 },
                 { "label": "DOWN", "matrix": [2, 2], "x": 2, "y": 2 },
                 { "label": "RIGHT", "matrix": [2, 3], "x": 3, "y": 2 },
-                { "label": "ENTER", "matrix": [2, 4], "h": 2, "x": 4, "y": 2 },
-                { "label": "L", "matrix": [3, 4], "x": 0, "y": 2 },
-                { "label": "PU", "matrix": [3, 2], "x": 0, "y": 2 },
-                { "label": "R", "matrix": [3, 0], "x": 0, "y": 2 }
+                { "label": "ENTER", "matrix": [2, 4], "h": 2, "x": 4, "y": 1 },
+                { "label": "L", "matrix": [3, 4], "x": 0, "y": 3.25 },
+                { "label": "PU", "matrix": [3, 2], "x": 1, "y": 3.25 },
+                { "label": "R", "matrix": [3, 0], "x": 2, "y": 3.25 }
             ]
         }
     },  
