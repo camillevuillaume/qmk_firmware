@@ -11,10 +11,10 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 
 const uint16_t PROGMEM encoder_map[][NUM_ENCODERS][2] = {
     [0] =   {
-      ENCODER_CCW_CW(KC_A, KC_B), 
-      ENCODER_CCW_CW(KC_D, KC_E), 
-      ENCODER_CCW_CW(KC_G, KC_H), 
-      ENCODER_CCW_CW(KC_J, KC_K), 
-      ENCODER_CCW_CW(KC_M, KC_N)
+      ENCODER_CCW_CW(KC_B, KC_A), 
+      ENCODER_CCW_CW(KC_E, KC_D), 
+      ENCODER_CCW_CW(KC_H, KC_G), 
+      ENCODER_CCW_CW(KC_K, KC_J), 
+      ENCODER_CCW_CW(KC_N, KC_M)
       }
 };
