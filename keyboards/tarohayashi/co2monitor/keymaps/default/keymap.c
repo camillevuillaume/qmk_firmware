@@ -9,28 +9,33 @@
 #define ALARTTHRESHOLD 2000
 // 安全圏の色
 #define SAFEHUE 150
-// 更新間隔
-#define SPAN 1000
+// 更新間隔（秒）
+#define SPAN 3
+// サンプル数
+#define COUNTMAX 31
 
 // 定数
-#define AD_VCC 4.850000
-#define EMF_RANGE 0.045000
-#define EMF_0_PPM 400.000000
-#define EMF_1_PPM 4000.000000
-#define EMF_MAX 0.220000
-#define EMF_CHK_RANGE 0.002000
-#define BOARD_GAIN 10.000000
+#define AD_VCC 4.8
+#define EMF_RANGE 0.045
+#define EMF_0_PPM 400.0
+#define EMF_1_PPM 4000.0
+#define EMF_MAX 0.22
+#define EMF_CHK_RANGE 0.002
+#define BOARD_GAIN 10.0
 
 // 変数
-double emf_max = 0.200000;
-double emf_chk = 0.200000;
-double sum = 0.000000;
+double emf_max = 0.2;
+double emf_chk = 0.2;
+double sum = 0.0;
 
-// キーボードの設定
+
+
+// キーコードの追加
 enum co2_keycode{
     CO2_SAFE_RANGE = SAFE_RANGE,
     CHANGE_MODE,
 };
+uint16_t startup_timer;
 
 enum led_mode{
     GRADATION = 0,
@@ -46,26 +51,14 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
   ),
 };
 
-bool process_record_user(uint16_t keycode, keyrecord_t* record) {
-    if (keycode == CHANGE_MODE && record->event.pressed) {
-        mode = (mode + 1) % 3;
-    }
-    return true;
-}
-
-
-void matrix_scan_user(void) {
-    
-}
-
-// OLEDの設定
-uint8_t count;
+uint16_t count;
 uint16_t oled_timer;
-#define SAMPLE 201
-double val[SAMPLE];
+uint16_t count_timer;
+int16_t val[COUNTMAX];
 
 oled_rotation_t oled_init_user(oled_rotation_t rotation) {
     oled_timer = timer_read();
+    count_timer = timer_read();
     count = 0;
     return OLED_ROTATION_180;
 }
@@ -100,25 +93,41 @@ static const char PROGMEM ppmfont[] = {
 };
 
 
+// 計算とOLEDの表示
 bool oled_task_user(void) {
-    if (timer_elapsed(oled_timer) > 3500){
-        double temp;
+
+
+    if (timer_elapsed(count_timer) > 100){
+        count = count % COUNTMAX;
+        val[count] = analogReadPin(F7);
+        count++;
+        count_timer = timer_read();    
+    }
+
+    if (timer_elapsed(oled_timer) > SPAN * 1000){
+
         // 中央値を求める
-        for(int i = 0; i < SAMPLE; i++){
-            for(int j = 0; j < SAMPLE; j++){
-                if (val[i] < val[j]){
-                    temp = val[i];
-                    val[i] = val[j];
-                    val[j] = temp;
+        int16_t temp;
+        int16_t tempval[COUNTMAX];
+        for(uint16_t i = 0; i < COUNTMAX; i++){
+            tempval[i] = val[i];
+        }
+
+        for(uint16_t j = 0; j < COUNTMAX; j++){
+            for(uint16_t k = 0; k < COUNTMAX; k++){
+                if (tempval[j] < tempval[k]){
+                    temp = tempval[j];
+                    tempval[j] = tempval[k];
+                    tempval[k] = temp;
                 }
             }
         }
-        double median = val[(SAMPLE - 1) / 2];
+        int16_t median = tempval[(COUNTMAX - 1) / 2];
 
         // ppm決定
-        double e = median / 1024.000000 * AD_VCC / BOARD_GAIN;
-        double k = (1.000000 / EMF_RANGE) * log10( EMF_1_PPM / EMF_0_PPM);
-        double ppm = EMF_0_PPM * pow(10.000000, (k * (emf_max - e)));
+        double e = (double)median / 1024.0 * AD_VCC / BOARD_GAIN;
+        double k = (1.0 / EMF_RANGE) * log10( EMF_1_PPM / EMF_0_PPM);
+        double ppm = EMF_0_PPM * pow(10.0, (k * (emf_max - e)));
 
         // 最大電圧更新
         if(ppm < EMF_0_PPM){
@@ -194,19 +203,32 @@ bool oled_task_user(void) {
                 premode = mode;
             }
         }
-
-        timer_clear();
         oled_timer = timer_read();
-    }else{
-        val[count % SAMPLE] = (double)analogReadPin(F7);
-
-        if(count > SAMPLE){
-            count = 0;
-        }
-        count++;
-    
     }
-
     return false;
 }
 
+bool process_record_user(uint16_t keycode, keyrecord_t* record) {
+    // 短押しでモード変更、長押しでリセット
+    if (keycode == CHANGE_MODE) {
+        if(record->event.pressed){
+
+        startup_timer = timer_read();
+        }else{
+            if(timer_elapsed(startup_timer) < 1000){
+                mode = (mode + 1) % 3;
+            }else {
+                timer_clear();
+                count = 0;
+                for(uint16_t i = 0; i < COUNTMAX; i++){
+                    val[i] = 0;
+                }
+                oled_timer = timer_read();
+                count_timer = timer_read(); 
+                oled_clear();
+            }
+        }
+    }
+
+    return true;
+}
