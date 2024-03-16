@@ -204,6 +204,21 @@ bool oled_task_user(void) {
         }
         oled_timer = timer_read();
     }
+
+    // 3日でリセット
+    if (timer_elapsed(oled_timer) > 259200000){
+        timer_clear();
+        count = 0;
+        for(uint16_t i = 0; i < COUNTMAX; i++){
+            val[i] = 0;
+        }
+        oled_timer = timer_read();
+        count_timer = timer_read(); 
+        emf_max = 0.2;
+        emf_chk = 0.2;
+        oled_clear();
+    }
+    
     return false;
 }
 
