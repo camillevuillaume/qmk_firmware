@@ -729,61 +729,45 @@ bool oled_task_user(void) {
     cur_layer = get_highest_layer(layer_state);
     oled_set_cursor(0, 0);
     if(is_keyboard_master()){
-        if(oled_mode){
+        if (oled_mode) {
             if (is_keyboard_left()) {
                 oled_write_raw_P(number[cur_layer], sizeof(number[cur_layer]));
             }else{
                 oled_write_raw_P(reverse_number[cur_layer], sizeof(reverse_number[cur_layer]));
             }
-        }else{
-            oled_write_P(PSTR("CPI:"), false);
+        } else{
+            oled_set_cursor(0, 0);
+            oled_write_P(PSTR("CPI:   "), false);
             oled_write(get_u16_str(cpi_array[ballconfig.cpi_idx], ' '), false);
 
             if(ballconfig.auto_mouse){
-                oled_write_P(PSTR(" AUTO MOUSE"), false);
+                oled_write_P(PSTR(" AUTO"), false);
             }else{
-                oled_write_P(PSTR("           "), false);
+                oled_write_P(PSTR("     "), false);
             }
 
             oled_set_cursor(0, 1);
-            oled_write_P(PSTR("ANG L:"), false);
-            oled_write(get_u16_str(angle_array[ballconfig.left_angle_idx], ' '), false);
-            oled_write_P(PSTR(" R:"), false);
-            oled_write(get_u16_str(angle_array[ballconfig.right_angle_idx], ' '), false);
+            oled_write_P(PSTR("ANGLE: "), false);
+            oled_write(get_u16_str(angle_array[ballconfig.angle_idx], ' '), false);
 
             oled_set_cursor(0, 2);
-            oled_write_P(PSTR("IAX L:  "), false);
-            if (ballconfig.left_inv){
+            oled_write_P(PSTR("INV AXIS:"), false);
+            if (ballconfig.inv){
                 oled_write_P(PSTR("YES"), false);
             }else{
                 oled_write_P(PSTR(" NO"), false);
             }
-
-            oled_write_P(PSTR(" R:  "), false);
-            if (ballconfig.right_inv){
-                oled_write_P(PSTR("YES"), false);
+            if(ballconfig.scmode){
+                oled_write_P(PSTR(" SCRL"), false);
             }else{
-                oled_write_P(PSTR(" NO"), false);
+                oled_write_P(PSTR(" CRSL"), false);
             }
-
             oled_set_cursor(0, 3);
+            oled_write_P(PSTR("INV SCRL:"), false);
             if (ballconfig.inv_sc){
-                oled_write_P(PSTR("INV"), false);
+                oled_write_P(PSTR("YES"), false);
             }else{
-                oled_write_P(PSTR("   "), false);
-            }
-            oled_write_P(PSTR(" L:"), false);
-            if (ballconfig.left_scmode){
-                oled_write_P(PSTR("SCROL"), false);
-            }else{
-                oled_write_P(PSTR("CURSR"), false);
-            }
-
-            oled_write_P(PSTR(" R:"), false);
-            if (ballconfig.right_scmode){
-                oled_write_P(PSTR("SCROL"), false);
-            }else{
-                oled_write_P(PSTR("CURSR"), false);
+                oled_write_P(PSTR(" NO"), false);
             }
         }
     }else{
