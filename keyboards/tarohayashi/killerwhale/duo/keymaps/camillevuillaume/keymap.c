@@ -10,8 +10,9 @@
 enum layer_number {
     BASE = 0,
     ONOFF, OFFON, ONON,                       // トグルスイッチで変更するレイヤー
-    LOWER, UPPER, UTIL,                       // 長押しで変更するレイヤー
-    //MOUSE, BALL_SETTINGS, LIGHT_SETTINGS // 自動マウスレイヤー切り替えや設定用のレイヤー
+//    LOWER, UPPER, UTIL,                       // 長押しで変更するレイヤー
+    MOUSE, BALL_SETTINGS, LIGHT_SETTINGS, // 自動マウスレイヤー切り替えや設定用のレイヤー
+    ADD_KEYS
 };
 
 // キーマップの設定
@@ -19,13 +20,13 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
   [BASE] = LAYOUT(
         // 左手
         // 天面スイッチ
-        KC_ESC,  KC_1,         KC_2,            KC_3, KC_4, KC_5,
+        KC_ESC,  KC_1,         KC_2,            KC_3, LT(BALL_SETTINGS, KC_4), LT(LIGHT_SETTINGS, KC_5),
         KC_TAB,  KC_Q,         KC_W,            KC_E, KC_R, KC_T,
-        KC_LCTL, KC_A,         KC_S,            KC_D, KC_F, KC_G,
+        KC_LSFT, KC_A,         KC_S,            KC_D, KC_F, KC_G,
                  KC_Z,         KC_X,            KC_C, KC_V, KC_B,
                                KC_BSLS ,
         // 側面スイッチ
-        KC_LSFT, KC_SPC,               
+        KC_LCTL, MO(MOUSE),               
         // 十字キーorジョイスティック                // ジョイスティックスイッチ
         KC_UP, KC_DOWN, KC_LEFT, KC_RIGHT,         KC_ENT,      
         // 追加スイッチ                             // トグルスイッチ
@@ -38,25 +39,25 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
                              KC_LBRC,
         KC_SPACE, KC_ENT,                   
         KC_UP, KC_DOWN, KC_LEFT, KC_RIGHT,         KC_ENT,     
-        KC_RSFT, KC_LNG1  ,                    MO(OFFON)
+        KC_RSFT, KC_RCTL  ,                    MO(OFFON)
     ),
-    /*[MOUSE] = LAYOUT(
-        XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, _______,    _______,
-        XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX,    XXXXXXX,
-        XXXXXXX, XXXXXXX, _______, KC_MS_BTN2, KC_MS_BTN1, XXXXXXX,
-                 XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX,
+    [MOUSE] = LAYOUT(
+        KC_LNG1, KC_F1,   KC_F2,   KC_F3, _______,    _______,
+        _______, _______, _______, KC_EQL,  _______,    _______,
+        _______, _______, _______, KC_MS_BTN2, KC_MS_BTN1, _______,
+                 _______, _______, _______, _______, _______,
                           _______,
-        XXXXXXX, XXXXXXX,
-        XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX,          XXXXXXX,
-        XXXXXXX, XXXXXXX,                            XXXXXXX,
-        _______, _______,    XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX,
-        XXXXXXX, XXXXXXX,    XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX,
-        XXXXXXX, KC_MS_BTN1, KC_MS_BTN2, _______, XXXXXXX, XXXXXXX,
-        XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX,
+        _______, _______,
+        _______, _______, _______, _______,          _______,
+        _______, _______,                            _______,
+        _______, _______,    _______, _______, _______, KC_LGUI,
+        _______, _______,    _______, _______, _______, _______,
+        _______, KC_MS_BTN1, KC_MS_BTN2, _______, _______, _______,
+        _______, KC_MINS,    _______, _______, _______,
                                    _______,
-        XXXXXXX, XXXXXXX,
-        XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX,          XXXXXXX,
-        XXXXXXX, XXXXXXX,                            XXXXXXX
+        _______, _______,
+        _______, _______, _______, _______,          _______,
+        _______, _______,                            _______
     ),
     [BALL_SETTINGS] = LAYOUT(
         XXXXXXX,    XXXXXXX, XXXXXXX, XXXXXXX, _______, L_CHMOD,
@@ -93,7 +94,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
         RGB_MOD, RGB_MOD,
         XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX,          XXXXXXX,
         XXXXXXX, XXXXXXX,                            XXXXXXX
-    )*/
+    )
 };
 
 const uint16_t PROGMEM encoder_map[][NUM_ENCODERS][2] = {
@@ -107,7 +108,7 @@ const uint16_t PROGMEM encoder_map[][NUM_ENCODERS][2] = {
         ENCODER_CCW_CW(KC_WH_U, KC_WH_D),
         ENCODER_CCW_CW(KC_WH_U, KC_WH_D)
     },
-    /*[LIGHT_SETTINGS] =   { 
+    [LIGHT_SETTINGS] =   { 
         ENCODER_CCW_CW(RGB_SPI, RGB_SPD), 
         ENCODER_CCW_CW(RGB_VAI, RGB_VAD), 
         ENCODER_CCW_CW(RGB_SAI, RGB_SAD), 
@@ -116,7 +117,7 @@ const uint16_t PROGMEM encoder_map[][NUM_ENCODERS][2] = {
         ENCODER_CCW_CW(RGB_VAI, RGB_VAD), 
         ENCODER_CCW_CW(RGB_SAI, RGB_SAD), 
         ENCODER_CCW_CW(RGB_HUI, RGB_HUD)
-    },*/
+    },
 };
 
 // 初期化関係
@@ -136,8 +137,4 @@ bool process_record_user(uint16_t keycode, keyrecord_t* record) {
 void matrix_scan_user(void) {
     matrix_scan_addedjoystick();
 }
-
-
-
-
 

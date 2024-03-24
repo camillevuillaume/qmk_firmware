@@ -3,6 +3,7 @@
 
 #include "add_rgblayers.h"
 //#include "quantum.h"
+#include "add_trackball.h"
 
 // レイヤーごとの発光場所、発光色の設定
 const rgblight_segment_t PROGMEM my_capslock_layer[] = RGBLIGHT_LAYER_SEGMENTS(
@@ -73,7 +74,21 @@ layer_state_t default_layer_state_set_user(layer_state_t state) {
 }
 
 layer_state_t layer_state_set_user(layer_state_t state) {
+    // switch (get_highest_layer(state)) {
+    // case 8:
+    //     pointing_device_set_cpi(cpi_array[0]);
+    //     break;
+    // default: //  for any other layers, or the default layer
+    //     pointing_device_set_cpi(cpi_array[ballconfig.cpi_idx]);
+    //     break;
+    // }
     state = update_tri_layer_state(state, 1, 2, 3);
+    if(layer_state_cmp(state, 4)) {
+        pointing_device_set_cpi(cpi_array[0]);
+    }
+    else {
+        pointing_device_set_cpi(cpi_array[ballconfig.cpi_idx]);
+    }
     rgblight_set_layer_state(3, layer_state_cmp(state, 1));
     rgblight_set_layer_state(4, layer_state_cmp(state, 2));
     rgblight_set_layer_state(5, layer_state_cmp(state, 3));
