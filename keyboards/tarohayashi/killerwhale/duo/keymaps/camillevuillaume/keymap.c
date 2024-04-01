@@ -43,14 +43,14 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
     ),
     [MOUSE] = LAYOUT(
         KC_LNG1, KC_F1,   KC_F2,   KC_F3, _______,    _______,
-        _______, _______, _______, KC_EQL,  _______,    _______,
+        KC_LGUI, _______, _______, KC_EQL,  _______,    _______,
         _______, _______, _______, KC_MS_BTN2, KC_MS_BTN1, _______,
                  _______, _______, _______, _______, _______,
                           _______,
         _______, _______,
-        _______, _______, _______, _______,          _______,
+        KC_PGUP, KC_PGDN, KC_HOME, KC_END,          _______,
         _______, _______,                            _______,
-        _______, _______,    _______, _______, _______, KC_LGUI,
+        _______, _______,    _______, _______, _______, KC_DEL,
         _______, _______,    _______, _______, _______, _______,
         _______, KC_MS_BTN1, KC_MS_BTN2, _______, _______, _______,
         _______, KC_MINS,    _______, _______, _______,
@@ -102,11 +102,11 @@ const uint16_t PROGMEM encoder_map[][NUM_ENCODERS][2] = {
         ENCODER_CCW_CW(KC_ESC, KC_TAB),
         ENCODER_CCW_CW(REDO, UNDO),
         ENCODER_CCW_CW(KC_WH_U, KC_WH_D),
-        ENCODER_CCW_CW(KC_WH_U, KC_WH_D),
+        ENCODER_CCW_CW(KC_WH_D, KC_WH_U),
         ENCODER_CCW_CW(KC_DEL, KC_BSPC),
         ENCODER_CCW_CW(KC_UP, KC_DOWN),
         ENCODER_CCW_CW(KC_WH_U, KC_WH_D),
-        ENCODER_CCW_CW(KC_WH_U, KC_WH_D)
+        ENCODER_CCW_CW(KC_WH_L, KC_WH_R)
     },
     [LIGHT_SETTINGS] =   { 
         ENCODER_CCW_CW(RGB_SPI, RGB_SPD), 
