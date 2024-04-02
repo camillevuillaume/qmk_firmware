@@ -386,6 +386,22 @@ bool process_record_addedkeycodes(uint16_t keycode, keyrecord_t *record) {
             }
             return false;
             break;
+        case WINDOW_LEFT:
+            if (record->event.pressed) {
+                register_code(KC_LGUI);
+                tap_code(KC_LEFT);
+                unregister_code(KC_LGUI);
+            }
+            return false;
+            break;
+        case WINDOW_RIGHT:
+            if (record->event.pressed) {
+                register_code(KC_LGUI);
+                tap_code(KC_RIGHT);
+                unregister_code(KC_LGUI);
+            }
+            return false;
+            break;
     }
     return true;
 }

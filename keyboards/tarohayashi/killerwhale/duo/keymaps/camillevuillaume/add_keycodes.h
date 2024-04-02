@@ -37,7 +37,9 @@ enum TH_keycodes{
     INV_SCRL,
     MOD_SCRL,
     AUTO_MOUSE,
-    OLED_MOD
+    OLED_MOD,
+    WINDOW_LEFT,
+    WINDOW_RIGHT
 };
 
 bool process_record_addedkeycodes(uint16_t keycode, keyrecord_t *record);
