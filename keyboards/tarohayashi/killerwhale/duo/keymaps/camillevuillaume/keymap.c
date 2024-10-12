@@ -20,44 +20,45 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
   [BASE] = LAYOUT(
         // 左手
         // 天面スイッチ
-        KC_ESC,  KC_1,         KC_2,            KC_3, LT(BALL_SETTINGS, KC_4), LT(LIGHT_SETTINGS, KC_5),
-        KC_TAB,  KC_Q,         KC_W,            KC_E, KC_R, KC_T,
-        KC_LSFT, KC_A,         KC_S,            KC_D, KC_F, KC_G,
-                 KC_Z,         KC_X,            KC_C, KC_V, KC_B,
-                               KC_BSLS ,
+        KC_ESC,  KC_1,          KC_2,           KC_3,           LT(BALL_SETTINGS, KC_4),    LT(LIGHT_SETTINGS, KC_5),
+        KC_TAB,  KC_Q,          KC_W,           KC_E,           KC_R,                       KC_T,
+        KC_LSFT, LGUI_T(KC_A),  LALT_T(KC_S),   LCTL_T(KC_D),   LSFT_T(KC_F),               KC_G,
+//        KC_LSFT, KC_A,          KC_S,           KC_D,           KC_F,                       KC_G,        
+                 KC_Z,          KC_X,           KC_C,           KC_V,                       KC_B,
+                                KC_BSLS ,
         // 側面スイッチ
-        KC_LCTL, MO(MOUSE),               
-        // 十字キーorジョイスティック                // ジョイスティックスイッチ
-        KC_UP, KC_DOWN, KC_LEFT, KC_RIGHT,         KC_ENT,      
-        // 追加スイッチ                             // トグルスイッチ
-        KC_MS_BTN2, KC_MS_BTN1,                    MO(ONOFF),
+        MO(MOUSE), KC_SPACE,               
+        // 十字キーorジョイスティック               // ジョイスティックスイッチ
+        KC_UP, KC_DOWN, KC_LEFT, KC_RIGHT,      KC_ENT,      
+        // 追加スイッチ                           // トグルスイッチ
+        KC_MS_BTN2, KC_MS_BTN1,                 MO(ONOFF),
         // 右手
-        KC_6, KC_7, KC_8, KC_9, KC_0, KC_BSPC,
-        KC_Y, KC_U, KC_I,    KC_O,             KC_P,    KC_QUOT,
-        KC_H, KC_J, KC_K,    KC_L,             KC_SCLN, KC_SLSH,
-        KC_N, KC_M, KC_COMM, KC_DOT,           KC_RBRC,
-                             KC_LBRC,
-        KC_SPACE, KC_ENT,                   
-        KC_UP, KC_DOWN, KC_LEFT, KC_RIGHT,         KC_ENT,     
-        KC_RSFT, KC_RCTL  ,                    MO(OFFON)
+        KC_6, KC_7,             KC_8,           KC_9,           KC_0,                       KC_BSPC,
+        KC_Y, KC_U,             KC_I,           KC_O,           KC_P,                       KC_QUOT,
+        KC_H, RSFT_T(KC_J),     RCTL_T(KC_K),   RALT_T(KC_L),   RGUI_T(KC_SCLN),            KC_SLSH,
+//        KC_H, KC_J,       KC_K,     KC_L,     KC_SCLN,              KC_SLSH,
+        KC_N, KC_M,             KC_COMM,        KC_DOT,         KC_RBRC,                    KC_LBRC,
+        KC_ENT, KC_BSPC,                   
+        KC_UP, KC_DOWN, KC_LEFT, KC_RIGHT,      KC_ENT,     
+        KC_RCTL, MO(MOUSE),                     MO(OFFON)
     ),
     [MOUSE] = LAYOUT(
-        KC_GRV,  KC_F1,   KC_F2,   KC_F3, _______,    _______,
-        KC_CAPS, _______, _______, KC_EQL, WINDOW_RIGHT,    _______,
-        _______, _______, _______, KC_MS_BTN2, KC_MS_BTN1, _______,
-                 _______, _______, _______, _______, _______,
-                          KC_LGUI,
+        //left hand
+        KC_GRV,  KC_F1,         KC_F2,          KC_F3,          KC_F4,                      KC_F5,
+        KC_CAPS, _______,       _______,        KC_EQL,         WINDOW_RIGHT,               _______,
+        _______, _______,       _______,        KC_MS_BTN2,     KC_MS_BTN1,                 _______,
+        _______, _______,       _______,        _______,        _______,                    KC_LGUI,
         _______, _______,
-        KC_PGUP, KC_PGDN, KC_HOME, KC_END,          _______,
-        _______, _______,                            _______,
-        _______, _______,    KC_F8  , KC_F9  , KC_F10, KC_DEL,
-        _______, _______,    _______, _______, _______, _______,
-        _______, KC_MS_BTN1, KC_MS_BTN2, WINDOW_LEFT, _______, _______,
-        _______, KC_MINS,    _______, _______, KC_LNG2,
-                                   KC_LNG1,
+        KC_PGUP, KC_PGDN, KC_HOME, KC_END,      _______,
+        _______, _______,                       _______,
+        //right hand
+        KC_F6,   KC_F7,         KC_F8,          KC_F9,          KC_F10,                     KC_DEL,
+        _______, _______,       _______,        _______,        _______,                    _______,
+        _______, KC_MS_BTN1,    KC_MS_BTN2,     WINDOW_LEFT,    _______,                    _______,
+        _______, KC_MINS,       _______,        _______,        KC_LNG2,                    KC_LNG1,
         _______, _______,
-        _______, _______, _______, _______,          _______,
-        _______, _______,                            _______
+        _______, _______, _______, _______,     _______,
+        _______, _______,                       _______
     ),
     [BALL_SETTINGS] = LAYOUT(
         XXXXXXX,    XXXXXXX, XXXXXXX, XXXXXXX, _______, L_CHMOD,

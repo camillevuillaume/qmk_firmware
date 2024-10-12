@@ -1,5 +1,6 @@
-# Added my own keymap. 
-On top of personal changes I did in the default layer, I also modified the  mouse layer by adding new keys combinations and a mouse sniper mode (800 DPI instead of 1500 for other layers). 
+# Added my own keymap
+
+On top of personal changes I did in the default layer, I also modified the mouse layer by adding new keys combinations and a mouse sniper mode (800 DPI instead of 1500 for other layers). 
 
 ![Killer Whale](killerwhale.jpg)
 
