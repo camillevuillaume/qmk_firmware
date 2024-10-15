@@ -35,6 +35,22 @@ bool process_record_addedkeycodes(uint16_t keycode, keyrecord_t *record) {
             }
             return false;
             break;
+        case CTL_GUI:
+            if (record->event.pressed) {
+                if (detected_host_os() == OS_MACOS || detected_host_os() == OS_IOS){
+                    register_code(KC_LCTL);
+                } else {
+                    register_code(KC_LGUI);
+                }
+            } else {
+                if (detected_host_os() == OS_MACOS || detected_host_os() == OS_IOS){
+                    unregister_code(KC_LCTL);
+                } else {
+                    unregister_code(KC_LGUI);
+                }
+            }
+            return false;
+            break;
         case UNDO:
             if (record->event.pressed) {
                 if (detected_host_os() == OS_MACOS || detected_host_os() == OS_IOS){
@@ -399,6 +415,34 @@ bool process_record_addedkeycodes(uint16_t keycode, keyrecord_t *record) {
                 register_code(KC_LGUI);
                 tap_code(KC_RIGHT);
                 unregister_code(KC_LGUI);
+            }
+            return false;
+            break;
+        case NEXTWORD:
+            if (record->event.pressed) {
+                if (detected_host_os() == OS_MACOS || detected_host_os() == OS_IOS){
+                    register_code(KC_LGUI);
+                    tap_code(KC_RIGHT);
+                    unregister_code(KC_LGUI);
+                } else {
+                    register_code(KC_LCTL);
+                    tap_code(KC_RIGHT);
+                    unregister_code(KC_LCTL);
+                }
+            }
+            return false;
+            break;
+        case PREVWORD:
+            if (record->event.pressed) {
+                if (detected_host_os() == OS_MACOS || detected_host_os() == OS_IOS){
+                    register_code(KC_LGUI);
+                    tap_code(KC_LEFT);
+                    unregister_code(KC_LGUI);
+                } else {
+                    register_code(KC_LCTL);
+                    tap_code(KC_LEFT);
+                    unregister_code(KC_LCTL);
+                }
             }
             return false;
             break;

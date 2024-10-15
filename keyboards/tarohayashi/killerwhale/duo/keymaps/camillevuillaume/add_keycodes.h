@@ -7,6 +7,7 @@
 // 追加するキーコード
 enum TH_keycodes{
     CMD_CTL = QK_KB_0,
+    CTL_GUI,
     UNDO,
     REDO,
     COPY,
@@ -39,7 +40,9 @@ enum TH_keycodes{
     AUTO_MOUSE,
     OLED_MOD,
     WINDOW_LEFT,
-    WINDOW_RIGHT
+    WINDOW_RIGHT,
+    NEXTWORD,
+    PREVWORD
 };
 
 bool process_record_addedkeycodes(uint16_t keycode, keyrecord_t *record);
