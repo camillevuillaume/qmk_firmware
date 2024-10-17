@@ -44,18 +44,18 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
     ),
     [MOUSE] = LAYOUT(
         //left hand
-        KC_GRV,         KC_F1,          KC_F2,          KC_F3,          KC_F4,           KC_F5,
-        KC_CAPS,        _______,        _______,        KC_EQL,         WINDOW_RIGHT,    _______,
-        _______,        _______,        _______,        KC_MS_BTN2,     KC_MS_BTN1,      MOD_SCRL,
-        _______,        _______,        _______,        _______,        _______,         KC_LGUI,
+        _______,        _______,        _______,        _______,        _______,            _______,
+        _______,        _______,        _______,        _______,        _______,            _______,
+        _______,        _______,        _______,        KC_MS_BTN2,     KC_MS_BTN1,         MOD_SCRL,
+        _______,        _______,        _______,        _______,        _______,            _______,
         _______,        _______,
-        KC_PGUP,        KC_PGDN,        KC_HOME,        KC_END,         _______,
+        _______,        _______,        _______,        _______,        _______,
         _______,        _______,                                        _______,
         //right hand
-        KC_F6,          KC_F7,          KC_F8,          KC_F9,          KC_F10,         KC_DEL,
-        REDO,           PASTE,          COPY,           CUT,            UNDO,           _______,
-        MOD_SCRL,       KC_MS_BTN1,     KC_MS_BTN2,     WINDOW_LEFT,    _______,        _______,
-        _______,        KC_MINS,        _______,        _______,        KC_LNG1,        KC_LNG5,
+        _______,         _______,       _______,        _______,        _______,            _______,
+        _______,        _______,        _______,        _______,        _______,            _______,
+        MOD_SCRL,       KC_MS_BTN1,     KC_MS_BTN2,     _______,        _______,            _______,
+        _______,        _______,        _______,        _______,        _______,            _______,
         _______,        _______,
         _______,        _______,        _______,        _______,        _______,
         _______,        _______,                                        _______
@@ -107,7 +107,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
         // 追加スイッチ                           // トグルスイッチ
         _______,        _______,                                        _______,
         // 右手
-        _______,        WINDOW_LEFT,    _______,        WINDOW_RIGHT,   _______,        KC_BSPC,
+        _______,        WINDOW_LEFT,    WINDOW_MAX,     WINDOW_RIGHT,   _______,        KC_BSPC,
         KC_PGUP,        PREVWORD,       KC_UP,          NEXTWORD,       _______,        _______,
         KC_PGDN,        KC_LEFT,        KC_DOWN,        KC_RIGHT,       KC_DEL,         _______,
         _______,        KC_HOME,        _______,        KC_END,         _______,        _______,

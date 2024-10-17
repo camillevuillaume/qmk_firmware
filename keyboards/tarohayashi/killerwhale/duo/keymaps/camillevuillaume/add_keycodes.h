@@ -41,6 +41,7 @@ enum TH_keycodes{
     OLED_MOD,
     WINDOW_LEFT,
     WINDOW_RIGHT,
+    WINDOW_MAX,
     NEXTWORD,
     PREVWORD
 };

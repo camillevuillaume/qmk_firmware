@@ -404,20 +404,54 @@ bool process_record_addedkeycodes(uint16_t keycode, keyrecord_t *record) {
             break;
         case WINDOW_LEFT:
             if (record->event.pressed) {
-                register_code(KC_LGUI);
-                tap_code(KC_LEFT);
-                unregister_code(KC_LGUI);
+                if (detected_host_os() == OS_MACOS || detected_host_os() == OS_IOS){
+                    register_code(KC_LGUI);
+                    register_code(KC_LALT);
+                    register_code(KC_LCTL);
+                    tap_code(KC_LEFT);
+                    unregister_code(KC_LGUI);
+                    unregister_code(KC_LALT);
+                    unregister_code(KC_LCTL);
+                } else {
+                    register_code(KC_LGUI);
+                    tap_code(KC_LEFT);
+                    unregister_code(KC_LGUI);
+                }
             }
             return false;
             break;
         case WINDOW_RIGHT:
             if (record->event.pressed) {
-                register_code(KC_LGUI);
-                tap_code(KC_RIGHT);
-                unregister_code(KC_LGUI);
+                if (detected_host_os() == OS_MACOS || detected_host_os() == OS_IOS){
+                    register_code(KC_LGUI);
+                    register_code(KC_LALT);
+                    register_code(KC_LCTL);
+                    tap_code(KC_RIGHT);
+                    unregister_code(KC_LGUI);
+                    unregister_code(KC_LALT);
+                    unregister_code(KC_LCTL);
+                } else {
+                    register_code(KC_LGUI);
+                    tap_code(KC_RIGHT);
+                    unregister_code(KC_LGUI);
+                }
             }
             return false;
             break;
+        case WINDOW_MAX:
+            if (record->event.pressed) {
+                if (detected_host_os() == OS_MACOS || detected_host_os() == OS_IOS){
+                    register_code(KC_LGUI);
+                    register_code(KC_LCTL);
+                    tap_code(KC_F);
+                    unregister_code(KC_LGUI);
+                    unregister_code(KC_LCTL);
+                } else {
+                    register_code(KC_LGUI);
+                    tap_code(KC_UP);
+                    unregister_code(KC_LGUI);
+                }
+            }
         case NEXTWORD:
             if (record->event.pressed) {
                 if (detected_host_os() == OS_MACOS || detected_host_os() == OS_IOS){
